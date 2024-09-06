@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/signUpFragment">
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.echoclass.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.example.echoclass.SignInFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_studentHomeFragment"
+            app:destination="@id/studentHomeFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_professorHomeFragment"
+            app:destination="@id/professorHomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentHomeFragment"
+        android:name="com.example.echoclass.StudentHomeFragment"
+        android:label="fragment_student_home"
+        tools:layout="@layout/fragment_student_home" >
+        <action
+            android:id="@+id/action_studentHomeFragment_to_aiChatBotFragment"
+            app:destination="@id/aiChatBotFragment" />
+        <action
+            android:id="@+id/action_studentHomeFragment_to_studentLecturesFragment"
+            app:destination="@id/studentLecturesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/professorHomeFragment"
+        android:name="com.example.echoclass.ProfessorHomeFragment"
+        android:label="fragment_professor_home"
+        tools:layout="@layout/fragment_professor_home" />
+    <fragment
+        android:id="@+id/aiChatBotFragment"
+        android:name="com.example.echoclass.AiChatBotFragment"
+        android:label="fragment_ai_chat_bot"
+        tools:layout="@layout/fragment_ai_chat_bot" />
+    <fragment
+        android:id="@+id/studentLecturesFragment"
+        android:name="com.example.echoclass.StudentLecturesFragment"
+        android:label="fragment_student_lectures"
+        tools:layout="@layout/fragment_student_lectures" >
+        <action
+            android:id="@+id/action_studentLecturesFragment_to_aboutLectureFragment"
+            app:destination="@id/aboutLectureFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutLectureFragment"
+        android:name="com.example.echoclass.AboutLectureFragment"
+        android:label="fragment_about_lecture"
+        tools:layout="@layout/fragment_about_lecture" >
+        <action
+            android:id="@+id/action_aboutLectureFragment_to_viewLectureFragment"
+            app:destination="@id/viewLectureFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewLectureFragment"
+        android:name="com.example.echoclass.ViewLectureFragment"
+        android:label="fragment_view_lecture"
+        tools:layout="@layout/fragment_view_lecture" />
+</navigation>
