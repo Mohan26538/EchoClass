@@ -7,4 +7,6 @@ data class User(
     val department: Department = Department.NotKnown,
     val email:String = "",
     val userId:String = ""
+
+
 )
