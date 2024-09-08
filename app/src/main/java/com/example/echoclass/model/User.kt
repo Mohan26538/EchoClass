@@ -9,4 +9,8 @@ data class User(
     val userId:String = ""
 
 
-)
+){
+    fun addId(uid:String):User{
+        return User(name, rollNo, userType, department, email, uid)
+    }
+}

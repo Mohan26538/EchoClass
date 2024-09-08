@@ -6,7 +6,7 @@ interface UserAuthentication {
 
     fun createUser(user: User,password:String,onSuccess:()->Unit)
 
-    fun login(user: User,onSuccess:()->Unit)
+    fun login(user: User,password: String,onSuccess:()->Unit)
 
     fun saveUser(user: User,onSuccess: () -> Unit)
 

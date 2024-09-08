@@ -3,7 +3,9 @@ package com.example.echoclass.repository.user
 import android.util.Log
 import com.example.echoclass.firebase.authentication.UserAuthentication
 import com.example.echoclass.model.User
+import com.example.echoclass.path.USERS_PATH
 import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 
 class UserRepository():UserAuthentication {
@@ -13,19 +15,17 @@ class UserRepository():UserAuthentication {
 
 
     override fun createUser(user: User, password: String, onSuccess: () -> Unit) {
-        firebaseAuth.createUserWithEmailAndPassword(user.email,user.password)
+        firebaseAuth.createUserWithEmailAndPassword(user.email,password)
             .addOnSuccessListener{
-                val user = it.user?.let { it1 -> user.addId(it1.userId)}
-                if (user != null){
-                    saveUser(email,onSuccess)
-                }
+                it.user?.let { it1 -> user.addId(it1.uid) }
+                saveUser(user,onSuccess)
 
             }
 
     }
 
-    override fun login(user: User, onSuccess: () -> Unit) {
-        firebaseAuth.signInWithEmailAndPassword(email,password)
+    override fun login(user: User,password: String, onSuccess: () -> Unit) {
+        firebaseAuth.signInWithEmailAndPassword(user.email,password)
             .addOnSuccessListener{
                 onSuccess()
             }.addOnFailureListener{
@@ -34,7 +34,7 @@ class UserRepository():UserAuthentication {
     }
 
     override fun saveUser(user: User, onSuccess: () -> Unit) {
-        db.collection(USER_PATH).document(user.userId).set(user)
+        db.collection(USERS_PATH).document(user.userId).set(user)
             .addOnSuccessListener{
                 onSuccess()
             }.addOnFailureListener{
