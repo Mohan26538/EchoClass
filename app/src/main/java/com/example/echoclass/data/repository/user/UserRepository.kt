@@ -1,14 +1,14 @@
-package com.example.echoclass.repository.user
+package com.example.echoclass.data.repository.user
 
 import android.util.Log
-import com.example.echoclass.firebase.authentication.UserAuthentication
-import com.example.echoclass.model.User
-import com.example.echoclass.path.USERS_PATH
+import com.example.echoclass.domain.firebase.authentication.UserAuthentication
+import com.example.echoclass.domain.model.User
+import com.example.echoclass.core.path.USERS_PATH
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 
-class UserRepository():UserAuthentication {
+class UserRepository(): UserAuthentication {
     private val firebaseAuth = Firebase.auth
     private val db = Firebase.firestore
 
@@ -24,7 +24,7 @@ class UserRepository():UserAuthentication {
 
     }
 
-    override fun login(user: User,password: String, onSuccess: () -> Unit) {
+    override fun login(user: User, password: String, onSuccess: () -> Unit) {
         firebaseAuth.signInWithEmailAndPassword(user.email,password)
             .addOnSuccessListener{
                 onSuccess()

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.echoclass.SignUpFragment"
+        android:name="com.example.echoclass.presentation.ui.fragments.account.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.echoclass.SignInFragment"
+        android:name="com.example.echoclass.presentation.ui.fragments.account.SignInFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in" >
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/studentHomeFragment"
-        android:name="com.example.echoclass.StudentHomeFragment"
+        android:name="com.example.echoclass.presentation.ui.fragments.student.StudentHomeFragment"
         android:label="fragment_student_home"
         tools:layout="@layout/fragment_student_home" >
         <action
@@ -43,17 +43,17 @@
     </fragment>
     <fragment
         android:id="@+id/professorHomeFragment"
-        android:name="com.example.echoclass.ProfessorHomeFragment"
+        android:name="com.example.echoclass.presentation.ui.fragments.professor.ProfessorHomeFragment"
         android:label="fragment_professor_home"
         tools:layout="@layout/fragment_professor_home" />
     <fragment
         android:id="@+id/aiChatBotFragment"
-        android:name="com.example.echoclass.AiChatBotFragment"
+        android:name="com.example.echoclass.presentation.ui.fragments.student.AiChatBotFragment"
         android:label="fragment_ai_chat_bot"
         tools:layout="@layout/fragment_ai_chat_bot" />
     <fragment
         android:id="@+id/studentLecturesFragment"
-        android:name="com.example.echoclass.StudentLecturesFragment"
+        android:name="com.example.echoclass.presentation.ui.fragments.student.StudentLecturesFragment"
         android:label="fragment_student_lectures"
         tools:layout="@layout/fragment_student_lectures" >
         <action
@@ -62,7 +62,7 @@
     </fragment>
     <fragment
         android:id="@+id/aboutLectureFragment"
-        android:name="com.example.echoclass.AboutLectureFragment"
+        android:name="com.example.echoclass.presentation.ui.fragments.student.AboutLectureFragment"
         android:label="fragment_about_lecture"
         tools:layout="@layout/fragment_about_lecture" >
         <action
@@ -71,7 +71,7 @@
     </fragment>
     <fragment
         android:id="@+id/viewLectureFragment"
-        android:name="com.example.echoclass.ViewLectureFragment"
+        android:name="com.example.echoclass.presentation.ui.fragments.student.ViewLectureFragment"
         android:label="fragment_view_lecture"
         tools:layout="@layout/fragment_view_lecture" />
 </navigation>

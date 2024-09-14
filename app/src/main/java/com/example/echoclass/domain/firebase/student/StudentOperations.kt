@@ -1,4 +1,4 @@
-package com.example.echoclass.firebase.student
+package com.example.echoclass.domain.firebase.student
 
 interface StudentOperations {
 

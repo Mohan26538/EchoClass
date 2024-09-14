@@ -1,8 +1,8 @@
-package com.example.echoclass.repository.student
+package com.example.echoclass.data.repository.student
 
-import com.example.echoclass.firebase.student.StudentOperations
+import com.example.echoclass.domain.firebase.student.StudentOperations
 
-class StudentRepository:StudentOperations {
+class StudentRepository: StudentOperations {
     override fun listAllLectures() {
         TODO("Not yet implemented")
     }

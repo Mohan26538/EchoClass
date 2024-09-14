@@ -1,4 +1,4 @@
-package com.example.echoclass.model
+package com.example.echoclass.domain.model
 
 enum class Department(private val departmentName: String) {
     CSBS("Computer Science and Business System"),

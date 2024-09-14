@@ -2,4 +2,13 @@
     <string name="app_name">EchoClass</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="user_types">
+        <item>Professor</item>
+        <item>Student</item>
+    </string-array>
+    <string-array name="departments">
+        <item>CSBS</item>
+        <item>CSE</item>
+        <item>IT</item>
+    </string-array>
 </resources>

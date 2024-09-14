@@ -1,4 +1,4 @@
-package com.example.echoclass.ui.activities
+package com.example.echoclass.presentation.ui.activities
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
