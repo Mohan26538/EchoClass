@@ -7,6 +7,10 @@ import com.example.echoclass.core.path.USERS_PATH
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.toObject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class UserRepository(): UserAuthentication {
     private val firebaseAuth = Firebase.auth
@@ -14,31 +18,52 @@ class UserRepository(): UserAuthentication {
 
 
 
-    override fun createUser(user: User, password: String, onSuccess: () -> Unit) {
+    override fun createUser(user: User, password: String, onSuccess: () -> Unit,onFailure:(String)->Unit) {
         firebaseAuth.createUserWithEmailAndPassword(user.email,password)
             .addOnSuccessListener{
-                it.user?.let { it1 -> user.addId(it1.uid) }
-                saveUser(user,onSuccess)
+                val user = it.user?.let { it1 -> user.addId(it1.uid) }
 
+                if (user != null) {
+                    saveUser(user,onSuccess,onFailure)
+                }
+            }.addOnFailureListener {
+                onFailure(it.message.toString())
             }
 
     }
 
-    override fun login(user: User, password: String, onSuccess: () -> Unit) {
-        firebaseAuth.signInWithEmailAndPassword(user.email,password)
+    override fun login(email:String, password: String, onSuccess: (User) -> Unit,onFailure: (String) -> Unit) {
+        firebaseAuth.signInWithEmailAndPassword(email,password)
             .addOnSuccessListener{
-                onSuccess()
+                CoroutineScope(Dispatchers.IO).launch {
+                    getCurrentUser(it.user?.uid.toString(),onSuccess,onFailure)
+                }
             }.addOnFailureListener{
                 Log.e("login",it.message.toString())
             }
     }
 
-    override fun saveUser(user: User, onSuccess: () -> Unit) {
+    override fun saveUser(user: User, onSuccess: () -> Unit,onFailure: (String) -> Unit) {
         db.collection(USERS_PATH).document(user.userId).set(user)
             .addOnSuccessListener{
                 onSuccess()
             }.addOnFailureListener{
+                Log.e("saveUser","uid = ${user.userId}")
                 Log.e("saveUser",it.message.toString())
+
             }
+    }
+
+    private suspend fun getCurrentUser(userId:String,onSuccess: (User) -> Unit,onFailure: (String) -> Unit){
+        db.collection(USERS_PATH).document(userId).get().addOnSuccessListener {
+            val user = it.toObject(User::class.java)
+            if (user != null) {
+                onSuccess(user)
+            }else{
+                onFailure("User Not Found")
+            }
+        }.addOnFailureListener {
+            onFailure(it.message.toString())
+        }
     }
 }

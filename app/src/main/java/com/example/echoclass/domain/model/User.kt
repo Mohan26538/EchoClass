@@ -1,5 +1,9 @@
 package com.example.echoclass.domain.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class User(
     val name:String = "",
     val rollNo:String = "",
@@ -9,7 +13,7 @@ data class User(
     val userId:String = ""
 
 
-){
+):Parcelable{
     fun addId(uid:String): User {
         return User(name, rollNo, userType, department, email, uid)
     }

@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_studentHomeFragment_to_studentLecturesFragment"
             app:destination="@id/studentLecturesFragment" />
+        <argument
+            android:name="user"
+            app:argType="com.example.echoclass.domain.model.User" />
     </fragment>
     <fragment
         android:id="@+id/professorHomeFragment"

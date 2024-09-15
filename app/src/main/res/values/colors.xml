@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="lightBlue">#305BEF</color>
     <color name="etcolor">#EFEFEF</color>
+    <color name="textBlack">#1E1E1E</color>
 </resources>
