@@ -12,6 +12,7 @@ import com.example.echoclass.R
 import com.example.echoclass.databinding.CourseItemsBinding
 import com.example.echoclass.databinding.OptionsItemsBinding
 import com.example.echoclass.domain.model.Course
+import com.example.echoclass.domain.model.Courses
 import kotlin.random.Random
 
 class CourseViewHolder(
@@ -43,7 +44,7 @@ class CourseViewHolder(
 }
 
 class CourseAdapter(
-    private val listOfCourse:List<Course>
+    private val listOfCourse: Courses
 ):Adapter<CourseViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseViewHolder {
         val binding = CourseItemsBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -51,11 +52,11 @@ class CourseAdapter(
     }
 
     override fun getItemCount(): Int {
-        return listOfCourse.size
+        return listOfCourse.courses.size
     }
 
     override fun onBindViewHolder(holder: CourseViewHolder, position: Int) {
-        holder.bindData(listOfCourse[position])
+        holder.bindData(listOfCourse.courses[position])
     }
 
 
