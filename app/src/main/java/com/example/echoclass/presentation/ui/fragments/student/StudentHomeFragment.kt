@@ -8,11 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.echoclass.R
 import com.example.echoclass.databinding.FragmentStudentHomeBinding
+import com.example.echoclass.domain.model.Announcement
 import com.example.echoclass.domain.model.Courses
 import com.example.echoclass.domain.model.User
 import com.example.echoclass.domain.model.options
+import com.example.echoclass.presentation.ui.fragments.student.utils.AnnouncementAdapter
 import com.example.echoclass.presentation.ui.fragments.student.utils.CourseAdapter
 import com.example.echoclass.presentation.ui.fragments.student.utils.OptionsAdapter
 import com.example.echoclass.presentation.ui.fragments.student.viewmodel.StudentViewModel
@@ -49,14 +52,46 @@ class StudentHomeFragment : Fragment() {
         studentHomeBinding.rvOptions.layoutManager = GridLayoutManager(requireContext(),3)
         studentHomeBinding.rvOptions.adapter = optionAdapter
 
-        studentViewModel.getAllCourses(user.department,::onCourseLoaderFailed)
 
-        studentViewModel.course.observe(viewLifecycleOwner){ courses ->
-            val courseAdapter = CourseAdapter(courses)
-            studentHomeBinding.rvCourses.layoutManager = GridLayoutManager(requireContext(),2)
-            studentHomeBinding.rvCourses.adapter = courseAdapter
-            studentHomeBinding.progressBarCourses.visibility = View.GONE
+        studentViewModel.loadData(user.department,::onCourseLoaderFailed)
+
+        studentViewModel.studentHomeViewState.observe(viewLifecycleOwner){
+            when(it){
+               is StudentHomeViewState.Loading ->{
+                    studentHomeBinding.progressBarCourses.visibility = View.VISIBLE
+                    studentHomeBinding.rvAnnouncement.visibility = View.GONE
+                    studentHomeBinding.rvCourses.visibility = View.GONE
+                    studentHomeBinding.tvAnnouncement.visibility = View.GONE
+                   studentHomeBinding.tvCourses.visibility = View.GONE
+                    studentHomeBinding.cardViewAnnouncement.visibility = View.GONE
+                }
+                is StudentHomeViewState.Loaded->{
+                    Log.e("loaded",it.listOfCourses.toString()+it.listOfAnnouncement.toString())
+                    studentHomeBinding.progressBarCourses.visibility = View.GONE
+                    studentHomeBinding.rvAnnouncement.visibility = View.VISIBLE
+                    studentHomeBinding.rvCourses.visibility = View.VISIBLE
+                    studentHomeBinding.tvCourses.visibility = View.VISIBLE
+                    studentHomeBinding.cardViewAnnouncement.visibility = View.VISIBLE
+                    studentHomeBinding.tvAnnouncement.visibility = View.VISIBLE
+                    val announcementsAdapter = AnnouncementAdapter(it.listOfAnnouncement)
+                    studentHomeBinding.rvAnnouncement.layoutManager = LinearLayoutManager(requireContext(),)
+                    studentHomeBinding.rvAnnouncement.adapter = announcementsAdapter
+                    val courseAdapter = CourseAdapter(it.listOfCourses)
+                    studentHomeBinding.rvCourses.layoutManager = GridLayoutManager(requireContext(),2)
+                    studentHomeBinding.rvCourses.adapter = courseAdapter
+                }
+
+                is StudentHomeViewState.Error -> {
+                    studentHomeBinding.progressBarCourses.visibility = View.GONE
+                    studentHomeBinding.rvAnnouncement.visibility = View.GONE
+                    studentHomeBinding.rvCourses.visibility = View.GONE
+                    studentHomeBinding.tvCourses.visibility = View.GONE
+                    studentHomeBinding.tvError.text = it.error
+                    studentHomeBinding.tvError.visibility = View.VISIBLE
+                    studentHomeBinding.tvAnnouncement.visibility = View.GONE}
+            }
         }
+
 
 
         studentHomeBinding.tvGreeting.text = "Hi, ${user.name}"
