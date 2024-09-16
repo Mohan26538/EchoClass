@@ -54,7 +54,15 @@ class UserRepository(): UserAuthentication {
             }
     }
 
-    private suspend fun getCurrentUser(userId:String,onSuccess: (User) -> Unit,onFailure: (String) -> Unit){
+    override fun checkUser(onSuccess: (User) -> Unit) {
+        if (firebaseAuth.currentUser!=null){
+            CoroutineScope(Dispatchers.IO).launch {
+                getCurrentUser(firebaseAuth.currentUser!!.uid,onSuccess)
+            }
+        }
+    }
+
+    private suspend fun getCurrentUser(userId:String,onSuccess: (User) -> Unit,onFailure: (String) -> Unit={}){
         db.collection(USERS_PATH).document(userId).get().addOnSuccessListener {
             val user = it.toObject(User::class.java)
             if (user != null) {

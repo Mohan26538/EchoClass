@@ -28,4 +28,8 @@ class AccountViewModel @Inject constructor(
         }
     }
 
+    fun checkUser(onSuccess: (User) -> Unit){
+        userRepository.checkUser(onSuccess)
+    }
+
 }

@@ -10,5 +10,6 @@ interface UserAuthentication {
 
     fun saveUser(user: User, onSuccess: () -> Unit,onFailure: (String) -> Unit)
 
+    fun checkUser(onSuccess: (User) -> Unit)
 
 }

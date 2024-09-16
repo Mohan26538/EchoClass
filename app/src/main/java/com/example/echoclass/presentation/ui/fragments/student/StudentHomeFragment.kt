@@ -66,6 +66,7 @@ class StudentHomeFragment : Fragment() {
                     studentHomeBinding.cardViewAnnouncement.visibility = View.GONE
                 }
                 is StudentHomeViewState.Loaded->{
+                    studentHomeBinding.tvError.visibility = View.GONE
                     Log.e("loaded",it.listOfCourses.toString()+it.listOfAnnouncement.toString())
                     studentHomeBinding.progressBarCourses.visibility = View.GONE
                     studentHomeBinding.rvAnnouncement.visibility = View.VISIBLE
